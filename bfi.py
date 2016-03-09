@@ -1,12 +1,11 @@
 import sys
 
 if( sys.argv.__len__() != 2 ):
-    print("Usage: python basdasdafi.py <brainfuck_filename>")
+    print("Usage: python bfi.py <brainfuck_filename>")
 
-# index: index of the current location in the data_map
-# data_map: "document" where the brainfuck program will write
-index = 0
-data_map = [0] * 30000
+CODE_SIZE = 30000  # maximum size of the memory for the program
+index = 0  # index of the current location in the data_map
+data_map = [0] * CODE_SIZE  # memory map where the brainfuck program will write
 
 # Open the file and process a single character at a time
 with open(sys.argv[1]) as bf_file:
@@ -21,7 +20,7 @@ with open(sys.argv[1]) as bf_file:
             elif char is '-' and data_map[index] > 0:
                 data_map[index] -= 1
             elif char is '.':
-                print(data_map[index], end='')
+                print(chr(data_map[index]), end='')
             elif char is ',':
                 data_map[index] = sys.stdin.read(1)
             elif char is '[' or char is ']':
